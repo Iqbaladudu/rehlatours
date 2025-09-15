@@ -1,6 +1,6 @@
 'use server'
 
-import { submitUmrahForm, getUmrahPackageOptions } from '@/action/services'
+import { getUmrahPackageOptions, submitUmrahForm } from '@/actions/services'
 import { type UmrahFormData } from '@/lib/validations'
 
 export async function handleUmrahFormSubmission(formData: UmrahFormData) {
