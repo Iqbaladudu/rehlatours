@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    'umrah-form-minimal': UmrahFormMinimal;
+    'umrah-package': UmrahPackage;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,6 +79,8 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    'umrah-form-minimal': UmrahFormMinimalSelect<false> | UmrahFormMinimalSelect<true>;
+    'umrah-package': UmrahPackageSelect<false> | UmrahPackageSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -158,6 +162,70 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "umrah-form-minimal".
+ */
+export interface UmrahFormMinimal {
+  id: string;
+  booking_id?: string | null;
+  status?: ('pending_review' | 'processing' | 'approved' | 'rejected' | 'completed') | null;
+  name?: string | null;
+  email?: string | null;
+  phone_number?: string | null;
+  register_date?: string | null;
+  gender?: ('male' | 'female') | null;
+  place_of_birth?: string | null;
+  birth_date?: string | null;
+  father_name?: string | null;
+  mother_name?: string | null;
+  address?: string | null;
+  city?: string | null;
+  province?: string | null;
+  postal_code?: string | null;
+  occupation?: string | null;
+  specific_disease?: boolean | null;
+  illness?: string | null;
+  special_needs?: boolean | null;
+  wheelchair?: boolean | null;
+  nik_number?: string | null;
+  passport_number?: string | null;
+  date_of_issue?: string | null;
+  expiry_date?: string | null;
+  place_of_issue?: string | null;
+  whatsapp_number?: string | null;
+  has_performed_umrah?: boolean | null;
+  has_performed_hajj?: boolean | null;
+  emergency_contact_name?: string | null;
+  relationship?: ('parents' | 'spouse' | 'children' | 'sibling' | 'relative') | null;
+  emergency_contact_phone?: string | null;
+  mariage_status?: ('single' | 'married' | 'divorced') | null;
+  umrah_package: string | UmrahPackage;
+  payment_method?: ('lunas' | '60_percent') | null;
+  terms_of_service?: boolean | null;
+  submission_date?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "umrah-package".
+ */
+export interface UmrahPackage {
+  id: string;
+  name: string;
+  price?: number | null;
+  description?: string | null;
+  duration?: string | null;
+  includes?:
+    | {
+        facility?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -170,6 +238,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'umrah-form-minimal';
+        value: string | UmrahFormMinimal;
+      } | null)
+    | ({
+        relationTo: 'umrah-package';
+        value: string | UmrahPackage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -252,6 +328,68 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "umrah-form-minimal_select".
+ */
+export interface UmrahFormMinimalSelect<T extends boolean = true> {
+  booking_id?: T;
+  status?: T;
+  name?: T;
+  email?: T;
+  phone_number?: T;
+  register_date?: T;
+  gender?: T;
+  place_of_birth?: T;
+  birth_date?: T;
+  father_name?: T;
+  mother_name?: T;
+  address?: T;
+  city?: T;
+  province?: T;
+  postal_code?: T;
+  occupation?: T;
+  specific_disease?: T;
+  illness?: T;
+  special_needs?: T;
+  wheelchair?: T;
+  nik_number?: T;
+  passport_number?: T;
+  date_of_issue?: T;
+  expiry_date?: T;
+  place_of_issue?: T;
+  whatsapp_number?: T;
+  has_performed_umrah?: T;
+  has_performed_hajj?: T;
+  emergency_contact_name?: T;
+  relationship?: T;
+  emergency_contact_phone?: T;
+  mariage_status?: T;
+  umrah_package?: T;
+  payment_method?: T;
+  terms_of_service?: T;
+  submission_date?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "umrah-package_select".
+ */
+export interface UmrahPackageSelect<T extends boolean = true> {
+  name?: T;
+  price?: T;
+  description?: T;
+  duration?: T;
+  includes?:
+    | T
+    | {
+        facility?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
