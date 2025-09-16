@@ -59,7 +59,7 @@ export class WhatsAppService {
             username: this.config.username,
             password: this.config.password,
           },
-        }
+        },
       )
 
       console.log('WhatsApp message sent successfully:', response.data)
@@ -86,7 +86,8 @@ export class WhatsAppService {
     }
 
     const statusText = statusMessages[formData.status] || 'diproses'
-    const operationText = operation === 'create' ? 'Terima kasih telah mendaftar' : 'Update pendaftaran Anda'
+    const operationText =
+      operation === 'create' ? 'Terima kasih telah mendaftar' : 'Update pendaftaran Anda'
     const actionText = operation === 'create' ? 'Pendaftaran Anda' : 'Status pendaftaran Anda'
 
     return `*Assalamualaikum ${formData.name}*
@@ -111,7 +112,7 @@ ${actionText} ${statusText}. Kami akan menghubungi Anda kembali untuk informasi 
   normalizePhoneNumber(phone: string): string {
     // Remove all non-digit characters
     const cleaned = phone.replace(/\D/g, '')
-    
+
     // Convert to international format for WhatsApp API
     // API expects format: 62xxx (without @s.whatsapp.net)
     if (cleaned.startsWith('0')) {
@@ -123,7 +124,7 @@ ${actionText} ${statusText}. Kami akan menghubungi Anda kembali untuk informasi 
     if (cleaned.startsWith('8')) {
       return `62${cleaned}`
     }
-    
+
     // If already in international format
     return cleaned
   }

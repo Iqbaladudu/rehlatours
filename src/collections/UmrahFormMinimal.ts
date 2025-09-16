@@ -1,4 +1,3 @@
-import { WhatsAppService } from '@/lib/whatsapp-service'
 import { CollectionConfig } from 'payload'
 
 export const UmrahFormMinimal: CollectionConfig = {
@@ -280,25 +279,54 @@ export const UmrahFormMinimal: CollectionConfig = {
           console.log(`Umrah form minimal updated: ${doc.booking_id} by ${doc.name}`)
         }
 
-        // Send WhatsApp notification for both create and update
+        // Send WhatsApp notification with PDF confirmation for both create and update
         try {
-          const whatsappService = new WhatsAppService()
-
           const phone = doc.whatsapp_number || doc.phone_number
           if (phone) {
-            const message = whatsappService.generateConfirmationMessage(doc, operation)
-            const normalizedPhone = whatsappService.normalizePhoneNumber(phone)
+            // Prepare booking data for PDF generation
+            const bookingData = {
+              bookingId: doc.booking_id,
+              customerName: doc.name,
+              email: doc.email,
+              whatsappNumber: doc.whatsapp_number,
+              phoneNumber: doc.phone_number,
+              packageName: doc.umrah_package?.name || 'Paket Umrah',
+              paymentMethod: doc.payment_method === 'lunas' ? 'Lunas' : 'Cicilan 60%',
+            }
 
-            await whatsappService.sendMessage({
-              phone: normalizedPhone,
-              message,
-              duration: 3600,
+            // Determine caption based on operation
+            const caption =
+              operation === 'create'
+                ? `Terima kasih atas pemesanan Anda. Berikut adalah konfirmasi pemesanan dengan ID: ${doc.booking_id}`
+                : `Update informasi pemesanan Anda dengan ID: ${doc.booking_id}`
+
+            // Create form data for WhatsApp API
+            const formData = new FormData()
+            formData.append('phone', `${phone}@s.whatsapp.net`)
+            formData.append('bookingData', JSON.stringify(bookingData))
+            formData.append('caption', caption)
+            formData.append('is_forwarded', 'false')
+            formData.append('duration', '3600')
+
+            // Send to our API endpoint that generates and sends PDF
+            const response = await fetch(`${process.env.BASE_URL}/api/send-file`, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                Authorization: `Basic ${Buffer.from('username:password').toString('base64')}`,
+              },
             })
 
-            console.log(`WhatsApp notification sent for booking ${doc.booking_id} (${operation})`)
+            if (response.ok) {
+              console.log(
+                `PDF confirmation sent via WhatsApp for booking ${doc.booking_id} (${operation})`,
+              )
+            } else {
+              console.error('Failed to send PDF confirmation:', await response.text())
+            }
           }
         } catch (error) {
-          console.error('Failed to send WhatsApp notification:', error)
+          console.error('Failed to send WhatsApp PDF notification:', error)
         }
       },
     ],

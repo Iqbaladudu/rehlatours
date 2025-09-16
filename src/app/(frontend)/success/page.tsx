@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -31,7 +31,7 @@ interface SubmissionData {
   message: string
 }
 
-export default function SuccessPage() {
+function SuccessPageContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [submissionData, setSubmissionData] = useState<SubmissionData | null>(null)
@@ -615,5 +615,45 @@ export default function SuccessPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-pink-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="relative">
+            <div
+              className="animate-spin rounded-full h-16 w-16 border-4 mx-auto mb-6"
+              style={{ borderColor: '#3a051940', borderTopColor: '#3a0519' }}
+            ></div>
+            <div
+              className="absolute inset-0 animate-ping rounded-full h-16 w-16 border-2 opacity-20"
+              style={{ borderColor: '#3a051960' }}
+            ></div>
+          </div>
+          <p className="text-gray-600 text-lg font-medium animate-pulse">
+            Memuat halaman sukses...
+          </p>
+          <div className="mt-4 flex justify-center space-x-1">
+            <div
+              className="w-2 h-2 rounded-full animate-bounce"
+              style={{ backgroundColor: '#3a0519' }}
+            ></div>
+            <div
+              className="w-2 h-2 rounded-full animate-bounce"
+              style={{ backgroundColor: '#3a0519', animationDelay: '0.1s' }}
+            ></div>
+            <div
+              className="w-2 h-2 rounded-full animate-bounce"
+              style={{ backgroundColor: '#3a0519', animationDelay: '0.2s' }}
+            ></div>
+          </div>
+        </div>
+      </div>
+    }>
+      <SuccessPageContent />
+    </Suspense>
   )
 }
