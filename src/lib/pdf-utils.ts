@@ -8,7 +8,9 @@ export function generateBookingId(): string {
 }
 
 // Helper function to create a complete UmrahFormData object with default values
-export function createDefaultUmrahFormData(partialData: Partial<UmrahFormData> = {}): UmrahFormData {
+export function createDefaultUmrahFormData(
+  partialData: Partial<UmrahFormData> = {},
+): UmrahFormData {
   const now = new Date()
   const defaultDate = now.toISOString().split('T')[0]
 
@@ -67,13 +69,16 @@ export function createDefaultUmrahFormData(partialData: Partial<UmrahFormData> =
 }
 
 // Helper function to validate required fields for PDF generation
-export function validateUmrahDataForPDF(data: Partial<UmrahFormData>): { isValid: boolean; missingFields: string[] } {
+export function validateUmrahDataForPDF(data: Partial<UmrahFormData>): {
+  isValid: boolean
+  missingFields: string[]
+} {
   const requiredFields: (keyof UmrahFormData)[] = [
     'name',
     'email',
     'phone_number',
     'umrah_package',
-    'payment_method'
+    'payment_method',
   ]
 
   const missingFields: string[] = []
@@ -86,7 +91,7 @@ export function validateUmrahDataForPDF(data: Partial<UmrahFormData>): { isValid
 
   return {
     isValid: missingFields.length === 0,
-    missingFields
+    missingFields,
   }
 }
 
@@ -121,22 +126,22 @@ export async function sendConfirmationPDF(
     caption?: string
     is_forwarded?: boolean
     duration?: number
-  } = {}
+  } = {},
 ): Promise<{ success: boolean; error?: string; response?: any }> {
   try {
     const formData = new FormData()
     formData.append('phone', phone)
     formData.append('umrahFormData', JSON.stringify(umrahFormData))
     formData.append('bookingId', bookingId)
-    
+
     if (options.caption) {
       formData.append('caption', options.caption)
     }
-    
+
     if (options.is_forwarded !== undefined) {
       formData.append('is_forwarded', options.is_forwarded.toString())
     }
-    
+
     if (options.duration !== undefined) {
       formData.append('duration', options.duration.toString())
     }
@@ -150,19 +155,19 @@ export async function sendConfirmationPDF(
       const errorData = await response.json()
       return {
         success: false,
-        error: errorData.error || 'Failed to send PDF'
+        error: errorData.error || 'Failed to send PDF',
       }
     }
 
     const result = await response.json()
     return {
       success: true,
-      response: result
+      response: result,
     }
   } catch (error) {
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred'
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
     }
   }
 }

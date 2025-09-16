@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
       try {
         const parsedUmrahData = JSON.parse(umrahFormDataJson)
         umrahFormData = parsedUmrahData
-        bookingId = formData.get('bookingId') as string || `RT-${Date.now()}`
+        bookingId = (formData.get('bookingId') as string) || `RT-${Date.now()}`
       } catch (error) {
         console.error('Error parsing umrahFormData:', error)
         return NextResponse.json({ error: 'Invalid umrahFormData format' }, { status: 400 })
@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
     } else {
       return NextResponse.json(
         { error: 'Either umrahFormData or bookingData is required' },
-        { status: 400 }
+        { status: 400 },
       )
     }
 

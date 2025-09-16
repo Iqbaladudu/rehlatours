@@ -1,11 +1,11 @@
 'use client'
 
 import React, { useState } from 'react'
-import { 
-  generateBookingId, 
-  createDefaultUmrahFormData, 
+import {
+  generateBookingId,
+  createDefaultUmrahFormData,
   sendConfirmationPDF,
-  validateUmrahDataForPDF 
+  validateUmrahDataForPDF,
 } from '@/lib/pdf-utils'
 import { UmrahFormData } from '@/types/form'
 
@@ -45,7 +45,7 @@ export default function PDFExamplePage() {
       })
 
       const bookingId = generateBookingId()
-      
+
       // Validate data
       const validation = validateUmrahDataForPDF(completeData)
       if (!validation.isValid) {
@@ -60,8 +60,8 @@ export default function PDFExamplePage() {
         {
           caption: 'Konfirmasi pemesanan Umrah Anda - Data Lengkap',
           is_forwarded: false,
-          duration: 3600
-        }
+          duration: 3600,
+        },
       )
 
       if (response.success) {
@@ -92,7 +92,7 @@ export default function PDFExamplePage() {
       })
 
       const bookingId = generateBookingId()
-      
+
       // Validate data
       const validation = validateUmrahDataForPDF(minimalData)
       if (!validation.isValid) {
@@ -106,7 +106,7 @@ export default function PDFExamplePage() {
         bookingId,
         {
           caption: 'Konfirmasi pemesanan Umrah Anda - Data Minimal',
-        }
+        },
       )
 
       if (response.success) {
@@ -135,7 +135,7 @@ export default function PDFExamplePage() {
         phoneNumber: '+6287777777777',
         whatsappNumber: '+6287777777777',
         packageName: 'Paket Legacy',
-        paymentMethod: 'Lunas'
+        paymentMethod: 'Lunas',
       }
 
       const formData = new FormData()
@@ -145,7 +145,7 @@ export default function PDFExamplePage() {
 
       const response = await fetch('/api/send-file', {
         method: 'POST',
-        body: formData
+        body: formData,
       })
 
       if (response.ok) {
@@ -201,7 +201,7 @@ export default function PDFExamplePage() {
         a.click()
         window.URL.revokeObjectURL(url)
         document.body.removeChild(a)
-        
+
         setResult(`✅ PDF berhasil didownload! Booking ID: ${bookingId}`)
       } else {
         const errorData = await response.json()
@@ -217,16 +217,12 @@ export default function PDFExamplePage() {
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-center mb-8">
-          Confirmation PDF - Example Usage
-        </h1>
-        
+        <h1 className="text-3xl font-bold text-center mb-8">Confirmation PDF - Example Usage</h1>
+
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           {/* Complete Data Test */}
           <div className="bg-white p-6 rounded-lg shadow-md border">
-            <h3 className="text-lg font-semibold mb-4 text-green-700">
-              1. Complete Data Test
-            </h3>
+            <h3 className="text-lg font-semibold mb-4 text-green-700">1. Complete Data Test</h3>
             <p className="text-sm text-gray-600 mb-4">
               Test dengan data lengkap (semua field terisi)
             </p>
@@ -241,9 +237,7 @@ export default function PDFExamplePage() {
 
           {/* Minimal Data Test */}
           <div className="bg-white p-6 rounded-lg shadow-md border">
-            <h3 className="text-lg font-semibold mb-4 text-blue-700">
-              2. Minimal Data Test
-            </h3>
+            <h3 className="text-lg font-semibold mb-4 text-blue-700">2. Minimal Data Test</h3>
             <p className="text-sm text-gray-600 mb-4">
               Test dengan data minimal (hanya field wajib)
             </p>
@@ -258,9 +252,7 @@ export default function PDFExamplePage() {
 
           {/* Legacy Format Test */}
           <div className="bg-white p-6 rounded-lg shadow-md border">
-            <h3 className="text-lg font-semibold mb-4 text-orange-700">
-              3. Legacy Format Test
-            </h3>
+            <h3 className="text-lg font-semibold mb-4 text-orange-700">3. Legacy Format Test</h3>
             <p className="text-sm text-gray-600 mb-4">
               Test backward compatibility dengan format lama
             </p>
@@ -275,12 +267,8 @@ export default function PDFExamplePage() {
 
           {/* Download Test */}
           <div className="bg-white p-6 rounded-lg shadow-md border">
-            <h3 className="text-lg font-semibold mb-4 text-purple-700">
-              4. Download Test
-            </h3>
-            <p className="text-sm text-gray-600 mb-4">
-              Download PDF tanpa mengirim via WhatsApp
-            </p>
+            <h3 className="text-lg font-semibold mb-4 text-purple-700">4. Download Test</h3>
+            <p className="text-sm text-gray-600 mb-4">Download PDF tanpa mengirim via WhatsApp</p>
             <button
               onClick={handleDownloadTest}
               disabled={loading}
@@ -312,23 +300,28 @@ export default function PDFExamplePage() {
           <h2 className="text-xl font-semibold mb-4">How it Works</h2>
           <div className="space-y-3 text-sm">
             <div>
-              <strong>1. Complete Data:</strong> Menggunakan semua field dari UmrahFormData dengan data lengkap
+              <strong>1. Complete Data:</strong> Menggunakan semua field dari UmrahFormData dengan
+              data lengkap
             </div>
             <div>
-              <strong>2. Minimal Data:</strong> Hanya mengisi field wajib, sisanya akan menggunakan default values
+              <strong>2. Minimal Data:</strong> Hanya mengisi field wajib, sisanya akan menggunakan
+              default values
             </div>
             <div>
-              <strong>3. Legacy Format:</strong> Menggunakan format BookingData lama untuk backward compatibility
+              <strong>3. Legacy Format:</strong> Menggunakan format BookingData lama untuk backward
+              compatibility
             </div>
             <div>
-              <strong>4. Download Only:</strong> Generate dan download PDF tanpa mengirim ke WhatsApp
+              <strong>4. Download Only:</strong> Generate dan download PDF tanpa mengirim ke
+              WhatsApp
             </div>
           </div>
-          
+
           <div className="mt-4 p-4 bg-blue-50 rounded">
             <p className="text-sm text-blue-800">
-              <strong>Note:</strong> Semua test akan mengirim PDF ke WhatsApp number yang dikonfigurasi 
-              di environment variables. Pastikan WhatsApp API sudah dikonfigurasi dengan benar.
+              <strong>Note:</strong> Semua test akan mengirim PDF ke WhatsApp number yang
+              dikonfigurasi di environment variables. Pastikan WhatsApp API sudah dikonfigurasi
+              dengan benar.
             </p>
           </div>
         </div>

@@ -117,7 +117,7 @@ export default function TestPDFPage() {
     <div className="container mx-auto py-8 px-4">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8">Test Confirmation PDF</h1>
-        
+
         <div className="space-y-6">
           {/* Error display */}
           {error && (
@@ -149,9 +149,18 @@ export default function TestPDFPage() {
           <div className="bg-gray-100 p-6 rounded-lg">
             <h2 className="text-xl font-semibold mb-4">Test Information</h2>
             <div className="space-y-2 text-sm">
-              <p><strong>Sample PDF:</strong> Contains data for a married male customer with full payment</p>
-              <p><strong>Custom PDF:</strong> Contains data for a single female customer with installment payment and health conditions</p>
-              <p><strong>Features tested:</strong> All form fields, formatting, date display, boolean values, conditional fields</p>
+              <p>
+                <strong>Sample PDF:</strong> Contains data for a married male customer with full
+                payment
+              </p>
+              <p>
+                <strong>Custom PDF:</strong> Contains data for a single female customer with
+                installment payment and health conditions
+              </p>
+              <p>
+                <strong>Features tested:</strong> All form fields, formatting, date display, boolean
+                values, conditional fields
+              </p>
             </div>
           </div>
 
@@ -159,11 +168,23 @@ export default function TestPDFPage() {
           <div className="bg-blue-50 p-6 rounded-lg">
             <h2 className="text-xl font-semibold mb-4">Technical Details</h2>
             <div className="space-y-2 text-sm">
-              <p><strong>Font:</strong> Helvetica with Inter fallback</p>
-              <p><strong>Page Size:</strong> A4</p>
-              <p><strong>Sections:</strong> Personal Info, Contact, Address, Documents, Health, Emergency Contact, Package</p>
-              <p><strong>Conditional Fields:</strong> Illness details (if specific_disease = true)</p>
-              <p><strong>Formatting:</strong> Indonesian date format, boolean to "Ya/Tidak", enum translations</p>
+              <p>
+                <strong>Font:</strong> Helvetica with Inter fallback
+              </p>
+              <p>
+                <strong>Page Size:</strong> A4
+              </p>
+              <p>
+                <strong>Sections:</strong> Personal Info, Contact, Address, Documents, Health,
+                Emergency Contact, Package
+              </p>
+              <p>
+                <strong>Conditional Fields:</strong> Illness details (if specific_disease = true)
+              </p>
+              <p>
+                <strong>Formatting:</strong> Indonesian date format, boolean to "Ya/Tidak", enum
+                translations
+              </p>
             </div>
           </div>
         </div>

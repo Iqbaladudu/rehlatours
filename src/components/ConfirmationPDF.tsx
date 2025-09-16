@@ -6,7 +6,9 @@ try {
   Font.register({
     family: 'Inter',
     fonts: [
-      { src: 'https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7SUc.woff2' },
+      {
+        src: 'https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2JL7SUc.woff2',
+      },
       { src: 'Helvetica', fontWeight: 'normal' }, // fallback
     ],
   })
@@ -22,7 +24,9 @@ try {
   Font.register({
     family: 'Inter-SemiBold',
     fonts: [
-      { src: 'https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7SUc.woff2' },
+      {
+        src: 'https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa2pL7SUc.woff2',
+      },
       { src: 'Helvetica-Bold', fontWeight: 600 }, // fallback
     ],
   })
@@ -164,7 +168,9 @@ interface ConfirmationPDFProps {
 // Helper function to safely access formData properties with fallbacks
 const safeGet = (obj: any, path: string, defaultValue: any = '-'): any => {
   if (!obj || typeof obj !== 'object') return defaultValue
-  return obj[path] !== undefined && obj[path] !== null && obj[path] !== '' ? obj[path] : defaultValue
+  return obj[path] !== undefined && obj[path] !== null && obj[path] !== ''
+    ? obj[path]
+    : defaultValue
 }
 
 // Helper function to format date
@@ -266,7 +272,9 @@ export default function ConfirmationPDF({ formData, bookingId }: ConfirmationPDF
 
             <View style={styles.row}>
               <Text style={styles.label}>Tempat Lahir</Text>
-              <Text style={styles.value}>{formatValue(safeGet(safeFormData, 'place_of_birth'))}</Text>
+              <Text style={styles.value}>
+                {formatValue(safeGet(safeFormData, 'place_of_birth'))}
+              </Text>
             </View>
 
             <View style={styles.row}>
@@ -286,7 +294,9 @@ export default function ConfirmationPDF({ formData, bookingId }: ConfirmationPDF
 
             <View style={styles.row}>
               <Text style={styles.label}>Status Pernikahan</Text>
-              <Text style={styles.value}>{getMaritalStatusLabel(safeGet(safeFormData, 'mariage_status'))}</Text>
+              <Text style={styles.value}>
+                {getMaritalStatusLabel(safeGet(safeFormData, 'mariage_status'))}
+              </Text>
             </View>
 
             <View style={[styles.row, styles.lastRow]}>
@@ -313,7 +323,9 @@ export default function ConfirmationPDF({ formData, bookingId }: ConfirmationPDF
 
             <View style={[styles.row, styles.lastRow]}>
               <Text style={styles.label}>WhatsApp</Text>
-              <Text style={styles.value}>{formatValue(safeGet(safeFormData, 'whatsapp_number'))}</Text>
+              <Text style={styles.value}>
+                {formatValue(safeGet(safeFormData, 'whatsapp_number'))}
+              </Text>
             </View>
           </View>
 
@@ -357,7 +369,9 @@ export default function ConfirmationPDF({ formData, bookingId }: ConfirmationPDF
 
             <View style={styles.row}>
               <Text style={styles.label}>No. Paspor</Text>
-              <Text style={styles.value}>{formatValue(safeGet(safeFormData, 'passport_number'))}</Text>
+              <Text style={styles.value}>
+                {formatValue(safeGet(safeFormData, 'passport_number'))}
+              </Text>
             </View>
 
             <View style={styles.row}>
@@ -372,7 +386,9 @@ export default function ConfirmationPDF({ formData, bookingId }: ConfirmationPDF
 
             <View style={[styles.row, styles.lastRow]}>
               <Text style={styles.label}>Tempat Terbit</Text>
-              <Text style={styles.value}>{formatValue(safeGet(safeFormData, 'place_of_issue'))}</Text>
+              <Text style={styles.value}>
+                {formatValue(safeGet(safeFormData, 'place_of_issue'))}
+              </Text>
             </View>
           </View>
 
@@ -384,7 +400,9 @@ export default function ConfirmationPDF({ formData, bookingId }: ConfirmationPDF
 
             <View style={styles.row}>
               <Text style={styles.label}>Penyakit Khusus</Text>
-              <Text style={styles.value}>{formatValue(safeGet(safeFormData, 'specific_disease'))}</Text>
+              <Text style={styles.value}>
+                {formatValue(safeGet(safeFormData, 'specific_disease'))}
+              </Text>
             </View>
 
             {safeGet(safeFormData, 'specific_disease') && safeGet(safeFormData, 'illness') && (
@@ -396,7 +414,9 @@ export default function ConfirmationPDF({ formData, bookingId }: ConfirmationPDF
 
             <View style={styles.row}>
               <Text style={styles.label}>Kebutuhan Khusus</Text>
-              <Text style={styles.value}>{formatValue(safeGet(safeFormData, 'special_needs'))}</Text>
+              <Text style={styles.value}>
+                {formatValue(safeGet(safeFormData, 'special_needs'))}
+              </Text>
             </View>
 
             <View style={[styles.row, styles.lastRow]}>
@@ -413,17 +433,23 @@ export default function ConfirmationPDF({ formData, bookingId }: ConfirmationPDF
 
             <View style={styles.row}>
               <Text style={styles.label}>Nama</Text>
-              <Text style={styles.value}>{formatValue(safeGet(safeFormData, 'emergency_contact_name'))}</Text>
+              <Text style={styles.value}>
+                {formatValue(safeGet(safeFormData, 'emergency_contact_name'))}
+              </Text>
             </View>
 
             <View style={styles.row}>
               <Text style={styles.label}>Hubungan</Text>
-              <Text style={styles.value}>{getRelationshipLabel(safeGet(safeFormData, 'relationship'))}</Text>
+              <Text style={styles.value}>
+                {getRelationshipLabel(safeGet(safeFormData, 'relationship'))}
+              </Text>
             </View>
 
             <View style={[styles.row, styles.lastRow]}>
               <Text style={styles.label}>No. Telepon</Text>
-              <Text style={styles.value}>{formatValue(safeGet(safeFormData, 'emergency_contact_phone'))}</Text>
+              <Text style={styles.value}>
+                {formatValue(safeGet(safeFormData, 'emergency_contact_phone'))}
+              </Text>
             </View>
           </View>
 
@@ -435,30 +461,38 @@ export default function ConfirmationPDF({ formData, bookingId }: ConfirmationPDF
 
             <View style={styles.row}>
               <Text style={styles.label}>Paket Umrah</Text>
-              <Text style={styles.value}>{formatValue(safeGet(safeFormData, 'umrah_package'))}</Text>
+              <Text style={styles.value}>
+                {formatValue(safeGet(safeFormData, 'umrah_package'))}
+              </Text>
             </View>
 
             <View style={styles.row}>
               <Text style={styles.label}>Metode Pembayaran</Text>
-              <Text style={styles.value}>{getPaymentMethodLabel(safeGet(safeFormData, 'payment_method'))}</Text>
+              <Text style={styles.value}>
+                {getPaymentMethodLabel(safeGet(safeFormData, 'payment_method'))}
+              </Text>
             </View>
 
             <View style={styles.row}>
               <Text style={styles.label}>Pernah Umrah</Text>
-              <Text style={styles.value}>{formatValue(safeGet(safeFormData, 'has_performed_umrah'))}</Text>
+              <Text style={styles.value}>
+                {formatValue(safeGet(safeFormData, 'has_performed_umrah'))}
+              </Text>
             </View>
 
             <View style={[styles.row, styles.lastRow]}>
               <Text style={styles.label}>Pernah Haji</Text>
-              <Text style={styles.value}>{formatValue(safeGet(safeFormData, 'has_performed_hajj'))}</Text>
+              <Text style={styles.value}>
+                {formatValue(safeGet(safeFormData, 'has_performed_hajj'))}
+              </Text>
             </View>
           </View>
 
           <View style={styles.noteBox}>
             <Text style={styles.noteTitle}>INFORMASI PENTING</Text>
             <Text style={styles.noteText}>
-              Mohon simpan dokumen ini sebagai bukti pemesanan Anda. Tim kami akan menghubungi
-              Anda melalui WhatsApp atau email untuk konfirmasi lebih lanjut mengenai persiapan
+              Mohon simpan dokumen ini sebagai bukti pemesanan Anda. Tim kami akan menghubungi Anda
+              melalui WhatsApp atau email untuk konfirmasi lebih lanjut mengenai persiapan
               keberangkatan dan dokumen yang diperlukan.
             </Text>
           </View>

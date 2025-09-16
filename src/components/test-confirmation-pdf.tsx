@@ -69,9 +69,7 @@ export default function TestConfirmationPDF() {
           fileName={`confirmation-${sampleBookingId}.pdf`}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block"
         >
-          {({ blob, url, loading, error }) =>
-            loading ? 'Loading document...' : 'Download PDF'
-          }
+          {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download PDF')}
         </PDFDownloadLink>
 
         {/* Display sample data */}

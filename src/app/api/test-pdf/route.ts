@@ -44,7 +44,7 @@ const sampleFormData: UmrahFormData = {
 export async function GET(request: NextRequest) {
   try {
     const bookingId = 'RT-TEST-' + Date.now()
-    
+
     // Generate PDF buffer
     const pdfDocument = createElement(ConfirmationPDF, { formData: sampleFormData, bookingId })
     const pdfBuffer = await renderToBuffer(pdfDocument as any)
@@ -61,8 +61,11 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error generating PDF:', error)
     return NextResponse.json(
-      { error: 'Failed to generate PDF', details: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
+      {
+        error: 'Failed to generate PDF',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
+      { status: 500 },
     )
   }
 }
@@ -75,7 +78,7 @@ export async function POST(request: NextRequest) {
     if (!formData || !bookingId) {
       return NextResponse.json(
         { error: 'Missing required data: formData and bookingId' },
-        { status: 400 }
+        { status: 400 },
       )
     }
 
@@ -83,10 +86,7 @@ export async function POST(request: NextRequest) {
     const requiredFields = ['name', 'email', 'phone_number']
     for (const field of requiredFields) {
       if (!formData[field]) {
-        return NextResponse.json(
-          { error: `Missing required field: ${field}` },
-          { status: 400 }
-        )
+        return NextResponse.json({ error: `Missing required field: ${field}` }, { status: 400 })
       }
     }
 
@@ -106,8 +106,11 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error generating PDF:', error)
     return NextResponse.json(
-      { error: 'Failed to generate PDF', details: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
+      {
+        error: 'Failed to generate PDF',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
+      { status: 500 },
     )
   }
 }
