@@ -237,7 +237,7 @@
 /* Calendar specific fixes */
 .calendar-container {
   position: relative;
-  z-index: 1;
+  z-index: 100 !important;
 }
 
 .calendar-container .calendar-popup {
@@ -365,4 +365,77 @@ form {
 .calendar-container {
   position: relative !important;
   z-index: 50 !important;
+}
+
+/* Mobile form width improvements */
+@media (max-width: 768px) {
+  /* Make form container wider on mobile */
+  .form-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0.5rem !important;
+  }
+  
+  /* Ensure form sections use full width */
+  .form-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* Make grid layouts single column on mobile */
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  /* Reduce padding on mobile */
+  .p-8 {
+    padding: 1rem !important;
+  }
+  
+  /* Make inputs full width */
+  input, select, textarea {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Remove background and shadows from form sections on mobile */
+  .bg-white\/80 {
+    background: transparent !important;
+  }
+  
+  .backdrop-blur-sm {
+    backdrop-filter: none !important;
+  }
+  
+  .rounded-2xl {
+    border-radius: 0 !important;
+  }
+  
+  .shadow-lg, .shadow-xl {
+    box-shadow: none !important;
+  }
+  
+  .border {
+    border: none !important;
+  }
+  
+  /* Add proper spacing between sections on mobile */
+  .form-section {
+    margin-bottom: 2rem !important;
+    padding-bottom: 1rem !important;
+    border-bottom: 1px solid #f3f4f6 !important;
+  }
+  
+  /* Remove border from last section */
+  .form-section:last-child {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+  }
 }

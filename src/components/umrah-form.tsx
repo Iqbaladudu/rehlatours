@@ -54,7 +54,7 @@ const FormSection = ({
 }) => (
   <div className={`group relative form-section ${className}`}>
     {/* Background decoration */}
-    <div className="absolute inset-0 bg-gradient-to-r from-rose-50/30 via-white to-pink-50/30 rounded-2xl blur-xl opacity-50 group-hover:opacity-70 transition-all duration-500"></div>
+    <div className="lg:absolute lg:inset-0 lg:bg-gradient-to-r lg:from-rose-50/30 lg:via-white lg:to-pink-50/30 lg:rounded-2xl lg:blur-xl lg:opacity-50 group-hover:lg:opacity-70 transition-all duration-500"></div>
 
     <div className="relative">
       <div className="flex items-center mb-8">
@@ -69,7 +69,7 @@ const FormSection = ({
           <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
         </div>
       </div>
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300">
+      <div className="lg:bg-white/80 lg:backdrop-blur-sm lg:rounded-2xl lg:p-6 lg:border lg:border-gray-200/50 lg:shadow-lg lg:hover:shadow-xl transition-all duration-300">
         {children}
       </div>
     </div>
@@ -236,15 +236,15 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-pink-50 py-8 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-white to-pink-50 py-8 px-2 sm:px-4 md:px-6 relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-rose-100/20 via-transparent to-transparent"></div>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-pink-100/20 via-transparent to-transparent"></div>
 
-      <div className="max-w-4xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10 lg:max-w-4xl">
         {/* Form Container */}
-        <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-100/50 hover:shadow-3xl transition-all duration-500 relative">
-          <form onSubmit={onSubmitHandler} className="p-8 lg:p-12 space-y-12">
+        <div className="bg-white/95 backdrop-blur-sm rounded-3xl border border-gray-100/50 hover:shadow-3xl transition-all duration-500 relative lg:bg-white/95 lg:backdrop-blur-sm lg:rounded-3xl lg:shadow-2xl lg:border lg:border-gray-100/50 lg:hover:shadow-3xl">
+          <form onSubmit={onSubmitHandler} className="p-4 sm:p-6 md:p-8 lg:p-12 space-y-12">
             {/* Personal Information */}
             <FormSection
               icon={User}
@@ -318,6 +318,9 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
                           disabled={(date) => date > new Date()}
                           initialFocus
                           className="rounded-lg"
+                          captionLayout="dropdown"
+                          fromYear={1940}
+                          toYear={new Date().getFullYear()}
                         />
                       </div>
                     )}
@@ -530,7 +533,7 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
                       {watchDateOfIssue ? format(watchDateOfIssue, 'dd/MM/yyyy') : 'Pilih tanggal'}
                     </Button>
                     {showIssueCalendar && (
-                      <div className="calendar-popup absolute top-full left-0 mt-1 z-[9999] bg-white border-2 border-rose-200 rounded-xl shadow-2xl p-4 min-w-[300px] transform translate-x-0">
+                      <div className="calendar-popup absolute top-full left-0 mt-1 z-auto bg-white border-2 border-rose-200 rounded-xl shadow-2xl p-4  transform translate-x-0 md:mt-1 md:min-w-[300px] min-w-full mb-16">
                         <Calendar
                           mode="single"
                           selected={watchDateOfIssue}
@@ -543,6 +546,9 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
                           disabled={(date) => date > new Date()}
                           initialFocus
                           className="rounded-lg"
+                          captionLayout="dropdown"
+                          fromYear={2000}
+                          toYear={new Date().getFullYear()}
                         />
                       </div>
                     )}
@@ -550,27 +556,27 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
                 </FormField>
 
                 <FormField label="Tanggal Kadaluarsa" error={errors.expiry_date?.message} required>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className={cn(
+                      'w-full justify-start text-left font-normal h-12 border-2 border-gray-200 focus:border-rose-400 focus:ring-2 focus:ring-rose-200 transition-all duration-200 hover:border-gray-300 -z-30',
+                      !watchExpiryDate && 'text-muted-foreground',
+                    )}
+                    onClick={() => {
+                      setShowExpiryCalendar(!showExpiryCalendar)
+                      // Close other calendars
+                      setShowBirthCalendar(false)
+                      setShowRegisterCalendar(false)
+                      setShowIssueCalendar(false)
+                    }}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4 z-" />
+                    {watchExpiryDate ? format(watchExpiryDate, 'dd/MM/yyyy') : 'Pilih tanggal'}
+                  </Button>
                   <div className="relative calendar-container">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className={cn(
-                        'w-full justify-start text-left font-normal h-12 border-2 border-gray-200 focus:border-rose-400 focus:ring-2 focus:ring-rose-200 transition-all duration-200 hover:border-gray-300',
-                        !watchExpiryDate && 'text-muted-foreground',
-                      )}
-                      onClick={() => {
-                        setShowExpiryCalendar(!showExpiryCalendar)
-                        // Close other calendars
-                        setShowBirthCalendar(false)
-                        setShowRegisterCalendar(false)
-                        setShowIssueCalendar(false)
-                      }}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {watchExpiryDate ? format(watchExpiryDate, 'dd/MM/yyyy') : 'Pilih tanggal'}
-                    </Button>
                     {showExpiryCalendar && (
-                      <div className="calendar-popup absolute top-full left-0 mt-1 z-[9999] bg-white border-2 border-rose-200 rounded-xl shadow-2xl p-4 min-w-[300px] transform translate-x-0">
+                      <div className="calendar-popup absolute top-full left-0 mt-1 z-[9999] bg-white border-2 border-rose-200 rounded-xl shadow-2xl p-4 min-w-[300px] transform translate-x-0 md:mt-1 md:min-w-[300px]">
                         <Calendar
                           mode="single"
                           selected={watchExpiryDate}
@@ -583,6 +589,9 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
                           disabled={(date) => date <= new Date()}
                           initialFocus
                           className="rounded-lg"
+                          captionLayout="dropdown"
+                          fromYear={2000}
+                          toYear={new Date().getFullYear() + 10}
                         />
                       </div>
                     )}
@@ -682,6 +691,9 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
                           disabled={(date) => date < new Date()}
                           initialFocus
                           className="rounded-lg"
+                          captionLayout="dropdown"
+                          fromYear={2020}
+                          toYear={new Date().getFullYear()}
                         />
                       </div>
                     )}
@@ -702,7 +714,7 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
                   <Checkbox
                     checked={watchSpecificDisease}
                     id="specific_disease"
-                    className="w-5 h-5"
+                    className="w-6 h-6 border-2 border-rose-400 focus:ring-rose-400 focus:border-rose-500 transition-all duration-200 mr-2 flex-shrink-0"
                     onCheckedChange={(checked) => {
                       setValue('specific_disease', !!checked)
                       setShowIllnessField(!!checked)
@@ -729,7 +741,7 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
                       checked={watchSpecialNeeds}
                       onCheckedChange={(checked) => setValue('special_needs', !!checked)}
                       id="special_needs"
-                      className="w-5 h-5"
+                      className="w-6 h-6 border-2 border-rose-400 focus:ring-rose-400 focus:border-rose-500 transition-all duration-200 mr-2 flex-shrink-0"
                     />
                     <Label htmlFor="special_needs" className="text-sm font-medium text-gray-700">
                       Kebutuhan Khusus
@@ -741,7 +753,7 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
                       checked={watchWheelchair}
                       onCheckedChange={(checked) => setValue('wheelchair', !!checked)}
                       id="wheelchair"
-                      className="w-5 h-5"
+                      className="w-6 h-6 border-2 border-rose-400 focus:ring-rose-400 focus:border-rose-500 transition-all duration-200 mr-2 flex-shrink-0"
                     />
                     <Label htmlFor="wheelchair" className="text-sm font-medium text-gray-700">
                       Kursi Roda
@@ -764,7 +776,7 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
                     checked={watchHasPerformedUmrah}
                     onCheckedChange={(checked) => setValue('has_performed_umrah', !!checked)}
                     id="has_performed_umrah"
-                    className="w-5 h-5"
+                    className="w-6 h-6 border-2 border-rose-400 focus:ring-rose-400 focus:border-rose-500 transition-all duration-200 mr-2 flex-shrink-0"
                   />
                   <Label
                     htmlFor="has_performed_umrah"
@@ -779,7 +791,7 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
                     checked={watchHasPerformedHajj}
                     onCheckedChange={(checked) => setValue('has_performed_hajj', !!checked)}
                     id="has_performed_hajj"
-                    className="w-5 h-5"
+                    className="w-6 h-6 border-2 border-rose-400 focus:ring-rose-400 focus:border-rose-500 transition-all duration-200 mr-2 flex-shrink-0"
                   />
                   <Label htmlFor="has_performed_hajj" className="text-sm font-medium text-gray-700">
                     Pernah melaksanakan Haji
@@ -796,53 +808,63 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
               className="terms-section"
             >
               <div className="space-y-6">
-                <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-6 rounded-xl border border-rose-200/50 shadow-sm">
-                  <h4 className="font-bold text-gray-900 mb-3 text-lg flex items-center">
-                    <div className="w-2 h-2 bg-rose-500 rounded-full mr-3"></div>
+                <div className="bg-gradient-to-br from-rose-50 to-pink-50 p-4 sm:p-6 rounded-xl border border-rose-200/50 shadow-sm overflow-hidden">
+                  <h4 className="font-bold text-gray-900 mb-3 text-base sm:text-lg flex items-center break-words">
+                    <div className="w-2 h-2 bg-rose-500 rounded-full mr-3 flex-shrink-0"></div>
                     Persyaratan Umum:
                   </h4>
                   <ul className="text-sm text-gray-700 space-y-2">
-                    <li className="flex items-start">
-                      <span className="text-rose-500 mr-2 mt-1">•</span>
-                      <span>Paspor masih berlaku minimal 6 bulan</span>
+                    <li className="flex items-start break-words">
+                      <span className="text-rose-500 mr-2 mt-1 flex-shrink-0">•</span>
+                      <span className="break-words">Paspor masih berlaku minimal 6 bulan</span>
                     </li>
-                    <li className="flex items-start">
-                      <span className="text-rose-500 mr-2 mt-1">•</span>
-                      <span>Sertifikat vaksin meningitis</span>
+                    <li className="flex items-start break-words">
+                      <span className="text-rose-500 mr-2 mt-1 flex-shrink-0">•</span>
+                      <span className="break-words">Sertifikat vaksin meningitis</span>
                     </li>
-                    <li className="flex items-start">
-                      <span className="text-rose-500 mr-2 mt-1">•</span>
-                      <span>Sertifikat vaksin polio (bila diperlukan)</span>
+                    <li className="flex items-start break-words">
+                      <span className="text-rose-500 mr-2 mt-1 flex-shrink-0">•</span>
+                      <span className="break-words">Sertifikat vaksin polio (bila diperlukan)</span>
                     </li>
-                    <li className="flex items-start">
-                      <span className="text-rose-500 mr-2 mt-1">•</span>
-                      <span>Membayar biaya pendaftaran</span>
+                    <li className="flex items-start break-words">
+                      <span className="text-rose-500 mr-2 mt-1 flex-shrink-0">•</span>
+                      <span className="break-words">Membayar biaya pendaftaran</span>
                     </li>
-                    <li className="flex items-start">
-                      <span className="text-rose-500 mr-2 mt-1">•</span>
-                      <span>Mengikuti briefing sebelum keberangkatan</span>
+                    <li className="flex items-start break-words">
+                      <span className="text-rose-500 mr-2 mt-1 flex-shrink-0">•</span>
+                      <span className="break-words">Mengikuti briefing sebelum keberangkatan</span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="flex items-start space-x-3">
-                  <Checkbox
-                    checked={watchTermsOfService}
-                    onCheckedChange={(checked) => setValue('terms_of_service', !!checked)}
-                    id="terms_of_service"
-                    className="w-5 h-5 mt-1"
-                  />
-                  <Label
-                    htmlFor="terms_of_service"
-                    className="text-sm text-gray-700 leading-relaxed"
-                  >
-                    Saya telah membaca dan menyetujui{' '}
-                    <span className="font-medium" style={{ color: '#3a0519' }}>
-                      syarat dan ketentuan
-                    </span>{' '}
-                    yang berlaku untuk perjalanan umrah ini. Saya memahami bahwa semua informasi
-                    yang saya berikan adalah benar dan dapat dipertanggungjawabkan.
-                  </Label>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 p-3 rounded-lg bg-white/80 border border-rose-200/50 shadow-sm">
+                  <div className="flex items-start w-full">
+                    <Checkbox
+                      checked={watchTermsOfService}
+                      onCheckedChange={(checked) => setValue('terms_of_service', !!checked)}
+                      id="terms_of_service"
+                      className="w-6 h-6 border-2 border-rose-400 focus:ring-rose-400 focus:border-rose-500 transition-all duration-200 mr-3 mt-1 flex-shrink-0"
+                    />
+                    <div className="flex flex-col w-full min-w-0">
+                      <Label
+                        htmlFor="terms_of_service"
+                        className="text-base text-gray-800 font-medium leading-snug break-words"
+                      >
+                        Saya telah membaca dan menyetujui{' '}
+                        <span
+                          className="font-bold underline decoration-rose-500 decoration-2"
+                          style={{ color: '#3a0519' }}
+                        >
+                          syarat dan ketentuan
+                        </span>{' '}
+                        yang berlaku untuk perjalanan umrah ini.
+                      </Label>
+                      <p className="text-sm text-gray-700 mt-2 leading-normal break-words">
+                        Saya memahami bahwa semua informasi yang saya berikan adalah benar dan dapat
+                        dipertanggungjawabkan.
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 {errors.terms_of_service && (
                   <p className="text-sm text-red-500 mt-2 flex items-center">
@@ -854,7 +876,7 @@ export function UmrahForm({ packages, onSubmit, isSubmitting = false }: UmrahFor
 
               <Button
                 type="submit"
-                className="w-full text-white font-bold py-5 text-lg transition-all duration-300 transform hover:scale-[1.02] shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden group"
+                className="w-full text-white font-bold py-5 text-lg transition-all duration-300 transform hover:scale-[1.02] shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none relative overflow-hidden group mt-5"
                 style={{ background: 'linear-gradient(135deg, #3a0519 0%, #5d1f35 100%)' }}
                 disabled={isSubmitting || formIsSubmitting}
                 onClick={refreshValidation}
